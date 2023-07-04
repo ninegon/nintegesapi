@@ -26,4 +26,9 @@ export class UserController {
   async insertUser(@Body("nif") nif: string, @Body("fullName") fullName: string, @Body("name") name: string, @Body("token") token: string, @Body("access") access: number, @Body("password") password: string) {
     return await this.userService.insertUser(nif, fullName, name, token, access, password)
   }
+
+  @Post('DeleteUser/:id')
+  async deleteUser(@Param('id') id: number) {
+    return await this.userService.deleteUser(id)
+  }
 }

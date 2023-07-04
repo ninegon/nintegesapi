@@ -21,4 +21,19 @@ export class WorkplaceController {
   async insertWorkplace(@Body("code") code: string, @Body("name") name: string, @Body("address") address: string, @Body("latitude") latitude: string, @Body("longitude") longitude: string) {
     return await this.workplaceService.insertWorkplace(code, name, address, latitude, longitude)
   }
+
+  @Post('setWorkplaceToUser')
+  async setWorkplaceToUser(@Body("workplaceId") workplaceId: number, @Body("userId") userId: number) {
+    return await this.workplaceService.setWorkplaceToUser(workplaceId, userId)
+  }
+
+  @Post('DeleteWorkplace/:id')
+  async deleteWorkplace(@Param('id') id: number) {
+    return await this.workplaceService.deleteWorkplace(id)
+  }
+
+  @Post('DeleteUserWorkplace/:id')
+  async DeleteUserWorkplace(@Param('id') id: number) {
+    return await this.workplaceService.DeleteUserWorkplace(id)
+  }
 }

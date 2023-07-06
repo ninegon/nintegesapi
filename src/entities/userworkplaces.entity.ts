@@ -1,5 +1,6 @@
 import { IsInt, IsString, IsDate, IsBoolean } from 'class-validator'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { WorkplaceEntity } from './workplace.entity'
 
 @Entity('userworkplaces')
 export class UserWorkplacesEntity {
@@ -15,5 +16,10 @@ export class UserWorkplacesEntity {
     @IsInt()
     workplaceId: number
 
+    // @ManyToOne(() => WorkplaceEntity, (workplace) => workplace.workplaceUsers)
+    // @JoinColumn({ name: 'workplaceId' })
+    @ManyToOne(() => WorkplaceEntity, (workplace) => workplace.workplaceUsers)
+    @JoinColumn({ name: 'workplaceId' })
+    workplace: WorkplaceEntity
 
 }

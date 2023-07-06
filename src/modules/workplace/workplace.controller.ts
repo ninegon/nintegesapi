@@ -13,8 +13,8 @@ export class WorkplaceController {
   }
 
   @Post('WorkplaceByUserId/:userId')
-  async workplaceById(@Param('userId') userId: number) {
-    return await this.workplaceService.workplaceById(userId)
+  async workplaceByUserId(@Param('userId') userId: number) {
+    return await this.workplaceService.workplaceByUserId(userId)
   }
 
   @Post('InsertWorkplace')

@@ -12,7 +12,7 @@ export class RecordService extends BaseService {
         this.recordRepo = this.makeQB(RecordEntity, 'r')
     }
 
-    allRecords = async (): Promise<RecordEntity[]> => await this.recordRepo.getMany()
+    allRecords = async (): Promise<RecordEntity[]> => await this.recordRepo.getMany().orderby({ id },"desc")
     insertRecord = async (type: number, userId: number, workplaceId: number, isSameLocation: boolean, note: string): Promise<InsertResult> => await this.recordRepo.insert().into(RecordEntity).values({ type, userId, workplaceId, isSameLocation, note }).execute()
     deleteRecord = async (id: number): Promise<DeleteResult> => await this.recordRepo.delete().where({ id }).execute()
 }

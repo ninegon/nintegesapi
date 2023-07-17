@@ -26,6 +26,11 @@ export class WorkplaceController {
   async setWorkplaceToUser(@Body("workplaceId") workplaceId: number, @Body("userId") userId: number) {
     return await this.workplaceService.setWorkplaceToUser(workplaceId, userId)
   }
+  
+  @Post('AllUserWorkplaces')
+  async allUserWorkplaces() {
+    return await this.workplaceService.allUserWorkplaces()
+  }
 
   @Post('DeleteWorkplace/:id')
   async deleteWorkplace(@Param('id') id: number) {

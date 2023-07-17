@@ -21,6 +21,10 @@ export class WorkplaceController {
   async insertWorkplace(@Body("code") code: string, @Body("name") name: string, @Body("address") address: string, @Body("latitude") latitude: string, @Body("longitude") longitude: string) {
     return await this.workplaceService.insertWorkplace(code, name, address, latitude, longitude)
   }
+  @Post('UpdateWorkplace/:id')
+  async updateUser(@Param('id') id: number, @Body("code") code: string, @Body("name") name: string, @Body("address") address: string, @Body("latitude") latitude: string, @Body("longitude") longitude: string) {
+    return await this.userService.updateUser(id, code, name, address, latitude, longitude)
+  }
 
   @Post('setWorkplaceToUser')
   async setWorkplaceToUser(@Body("workplaceId") workplaceId: number, @Body("userId") userId: number) {

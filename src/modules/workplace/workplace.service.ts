@@ -20,4 +20,6 @@ export class WorkplaceService extends BaseService {
     setWorkplaceToUser = async (workplaceId: number, userId: number): Promise<InsertResult> => await this.userWorkplace.insert().into(UserWorkplacesEntity).values({ workplaceId, userId }).execute()
     deleteWorkplace = async (id: number): Promise<DeleteResult> => await this.workplaceRepo.delete().where({ id }).execute()
     DeleteUserWorkplace = async (id: number): Promise<DeleteResult> => await this.userWorkplace.delete().where({ id }).execute()
+    allUserWorkplaces = async (): Promise<UserWorkplacesEntity[]> => await this.userWorkplace.getMany()
+
 }

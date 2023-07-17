@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { BaseService } from 'src/core/BaseService';
 import { UserWorkplacesEntity } from 'src/entities/userworkplaces.entity';
 import { WorkplaceEntity } from 'src/entities/workplace.entity';
-import { DataSource, DeleteResult, InsertResult, SelectQueryBuilder } from 'typeorm';
+import { DataSource, DeleteResult, InsertResult, SelectQueryBuilder, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class WorkplaceService extends BaseService {

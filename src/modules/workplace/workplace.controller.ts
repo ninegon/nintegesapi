@@ -24,7 +24,7 @@ export class WorkplaceController {
   
   @Post('UpdateWorkplace/:id')
   async updateWorkplace(@Param('id') id: number, @Body("code") code: string, @Body("name") name: string, @Body("address") address: string, @Body("latitude") latitude: string, @Body("longitude") longitude: string) {
-    return await this.userService.updateUser(id, code, name, address, latitude, longitude)
+    return await this.workplaceService.updateWorkplace(id, code, name, address, latitude, longitude)
   }
 
   @Post('setWorkplaceToUser')

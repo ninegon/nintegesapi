@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:type", Number)
 ], WorkplaceCalendarEntity.prototype, "hours", void 0);
 __decorate([
-    (0, typeorm_1.Column)('timestamp', { name: 'date' }),
+    (0, typeorm_1.Column)('date', { name: 'date' }),
     (0, class_validator_1.IsDate)(),
     __metadata("design:type", Date)
 ], WorkplaceCalendarEntity.prototype, "date", void 0);

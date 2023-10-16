@@ -15,7 +15,7 @@ export class WorkplaceCalendarEntity {
     hours: number
 
     
-    @Column('timestamp', { name: 'date' })
+    @Column('date', { name: 'date' })
     @IsDate()
     date: Date
 

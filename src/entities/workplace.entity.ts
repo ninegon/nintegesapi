@@ -1,6 +1,7 @@
 import { IsInt, IsString, IsDate, IsBoolean } from 'class-validator'
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { UserWorkplacesEntity } from './userworkplaces.entity'
+import { WorkplaceCalendarEntity } from './workplaceCalendar.entity'
 
 @Entity('workplace')
 export class WorkplaceEntity {
@@ -26,6 +27,9 @@ export class WorkplaceEntity {
 
     @OneToMany(() => UserWorkplacesEntity, (settings) => settings.workplace)
     workplaceUsers: UserWorkplacesEntity
+    
+    @OneToMany(() => WorkplaceCalendarEntity, (settings) => settings.workplace)
+    workplaceCalendars: WorkplaceCalendarEntity
 
 
 }

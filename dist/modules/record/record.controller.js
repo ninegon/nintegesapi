@@ -23,8 +23,8 @@ let RecordController = exports.RecordController = class RecordController {
     async allRecords() {
         return await this.recordService.allRecords();
     }
-    async insertRecord(type, userId, workplaceId, isSameLocation, note) {
-        return await this.recordService.insertRecord(type, userId, workplaceId, isSameLocation, note);
+    async insertRecord(type, userId, workedHours, workplaceId, isSameLocation, note) {
+        return await this.recordService.insertRecord(type, userId, workplaceId, isSameLocation, note, workedHours);
     }
     async deleteRecord(id) {
         return await this.recordService.deleteRecord(id);
@@ -40,11 +40,12 @@ __decorate([
     (0, common_1.Post)('InsertRecord'),
     __param(0, (0, common_1.Body)('type')),
     __param(1, (0, common_1.Body)('userId')),
-    __param(2, (0, common_1.Body)('workplaceId')),
-    __param(3, (0, common_1.Body)('isSameLocation')),
-    __param(4, (0, common_1.Body)('note')),
+    __param(2, (0, common_1.Body)('workedHours')),
+    __param(3, (0, common_1.Body)('workplaceId')),
+    __param(4, (0, common_1.Body)('isSameLocation')),
+    __param(5, (0, common_1.Body)('note')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number, Number, Boolean, String]),
+    __metadata("design:paramtypes", [Number, Number, Number, Number, Boolean, String]),
     __metadata("design:returntype", Promise)
 ], RecordController.prototype, "insertRecord", null);
 __decorate([

@@ -13,8 +13,8 @@ export class RecordController {
   }
 
   @Post('InsertRecord')
-  async insertRecord(@Body('type') type: number, @Body('userId') userId: number, @Body('workplaceId') workplaceId: number, @Body('isSameLocation') isSameLocation: boolean, @Body('note') note: string) {
-    return await this.recordService.insertRecord(type, userId, workplaceId, isSameLocation, note)
+  async insertRecord(@Body('type') type: number, @Body('userId') userId: number, @Body('workedHours') workedHours: number, @Body('workplaceId') workplaceId: number, @Body('isSameLocation') isSameLocation: boolean, @Body('note') note: string) {
+    return await this.recordService.insertRecord(type, userId, workplaceId, isSameLocation, note, workedHours)
   }
 
   @Post('DeleteRecord/:id')

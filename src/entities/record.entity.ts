@@ -19,6 +19,10 @@ export class RecordEntity {
     @IsInt()
     userId: number
     
+    @Column('int', { name: 'workedHours' })
+    @IsInt()
+    workedHours: number
+    
     @Column('int', { name: 'workplaceId' })
     @IsInt()
     workplaceId: number

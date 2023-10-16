@@ -35,6 +35,11 @@ __decorate([
     __metadata("design:type", Number)
 ], RecordEntity.prototype, "userId", void 0);
 __decorate([
+    (0, typeorm_1.Column)('int', { name: 'workedHours' }),
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], RecordEntity.prototype, "workedHours", void 0);
+__decorate([
     (0, typeorm_1.Column)('int', { name: 'workplaceId' }),
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)

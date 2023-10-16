@@ -18,13 +18,38 @@ const BaseService_1 = require("../../core/BaseService");
 const record_entity_1 = require("../../entities/record.entity");
 const typeorm_1 = require("typeorm");
 const dateUtils_1 = require("../../utils/dates/dateUtils");
+const workplaceCalendar_entity_1 = require("../../entities/workplaceCalendar.entity");
 let RecordService = exports.RecordService = class RecordService extends BaseService_1.BaseService {
     constructor(dataSource) {
         super(dataSource);
-        this.allRecords = async () => await this.recordRepo.orderBy("id", "DESC").getMany();
-        this.insertRecord = async (type, userId, workplaceId, isSameLocation, note) => await this.recordRepo.insert().into(record_entity_1.RecordEntity).values({ type, userId, date: dateUtils_1.DateUtils.nowUtc(), workplaceId, isSameLocation, note }).execute();
+        this.allRecords = async () => {
+            const { rawData, askData } = (await this.recordRepo.orderBy("id", "DESC").getMany()).reduce((acc, key) => {
+                acc.rawData.push(key);
+                if (key.type === 4) {
+                    acc.askData.push({ workplaceId: key.workplaceId, date: new Date(key.date).toLocaleDateString('zh-Hans-CN') });
+                }
+                return acc;
+            }, { rawData: [], askData: [] });
+            const calendarDates = await this.workplaceCalendarRepo.where(askData).getMany();
+            return rawData.reduce((acc, key) => {
+                if (key.type === 4) {
+                    const calendarDate = calendarDates.find(x => x.workplaceId === key.workplaceId && new Date(x.date).toLocaleDateString('en-GB') === new Date(key.date).toLocaleDateString('en-GB'));
+                    if (calendarDate) {
+                        key.hours = {
+                            worked: key.workedHours,
+                            needed: calendarDate.hours,
+                            difference: calendarDate.hours - key.workedHours
+                        };
+                    }
+                    return [...acc, key];
+                }
+                return acc;
+            }, []);
+        };
+        this.insertRecord = async (type, userId, workplaceId, isSameLocation, note, workedHours) => await this.recordRepo.insert().into(record_entity_1.RecordEntity).values({ type, userId, date: dateUtils_1.DateUtils.nowUtc(), workplaceId, isSameLocation, note, workedHours }).execute();
         this.deleteRecord = async (id) => await this.recordRepo.delete().where({ id }).execute();
         this.recordRepo = this.makeQB(record_entity_1.RecordEntity, 'r');
+        this.workplaceCalendarRepo = this.makeQB(workplaceCalendar_entity_1.WorkplaceCalendarEntity, 'r');
     }
 };
 exports.RecordService = RecordService = __decorate([

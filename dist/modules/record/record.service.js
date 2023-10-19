@@ -32,6 +32,11 @@ let RecordService = exports.RecordService = class RecordService extends BaseServ
             }, { rawData: [], askData: [] });
             const calendarDates = await this.workplaceCalendarRepo.where(askData).getMany();
             return rawData.reduce((acc, key) => {
+                key.hours = {
+                    worked: key.workedHours,
+                    needed: 0,
+                    difference: 0
+                };
                 if (key.type === 4) {
                     const calendarDate = calendarDates.find(x => x.workplaceId === key.workplaceId && new Date(x.date).toLocaleDateString('en-GB') === new Date(key.date).toLocaleDateString('en-GB'));
                     if (calendarDate) {
@@ -41,9 +46,8 @@ let RecordService = exports.RecordService = class RecordService extends BaseServ
                             difference: calendarDate.hours - key.workedHours
                         };
                     }
-                    return [...acc, key];
                 }
-                return acc;
+                return [...acc, key];
             }, []);
         };
         this.insertRecord = async (type, userId, workplaceId, isSameLocation, note, workedHours) => await this.recordRepo.insert().into(record_entity_1.RecordEntity).values({ type, userId, date: dateUtils_1.DateUtils.nowUtc(), workplaceId, isSameLocation, note, workedHours }).execute();

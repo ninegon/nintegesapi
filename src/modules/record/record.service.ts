@@ -26,6 +26,11 @@ export class RecordService extends BaseService {
         }, { rawData: [], askData: [] })
         const calendarDates = await this.workplaceCalendarRepo.where(askData).getMany()
         return rawData.reduce((acc, key: any) => {
+            key.hours = {
+                worked: key.workedHours,
+                needed: 0,
+                difference: 0
+            }
             if (key.type === 4) {
                 const calendarDate = calendarDates.find(x => x.workplaceId === key.workplaceId && new Date(x.date).toLocaleDateString('en-GB') === new Date(key.date).toLocaleDateString('en-GB'))
                 if (calendarDate) {
@@ -35,9 +40,8 @@ export class RecordService extends BaseService {
                         difference: calendarDate.hours - key.workedHours
                     }
                 }
-                return [...acc, key]
             }
-            return acc
+            return [...acc, key]
         }, [])
 
     }
